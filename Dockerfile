@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 # Build the application
-RUN ./gradlew build --no-daemon
+RUN chmod +x gradlew && ./gradlew build --no-daemon
 
 # Create a separate stage for the runtime environment
 FROM eclipse-temurin:17-jdk-focal
