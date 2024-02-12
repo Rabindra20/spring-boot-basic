@@ -25,3 +25,15 @@ jobs:
     - name: Build with Gradle Wrapper
       run: chmod +x gradlew && ./gradlew build
 
+    - name: notification
+      uses: ravsamhq/notify-slack-action@v2
+      if: always()
+      with:
+        status: ${{ job.status }}
+        notification_title: "{workflow} has {status_message}"
+        message_format: "{emoji} *{workflow}* {status_message} push by ${{ github.actor }}"
+        # footer: "Linked Repo <{repo_url}|{repo}>"
+        mention_groups: "!channel"
+        mention_groups_when: "failure"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
