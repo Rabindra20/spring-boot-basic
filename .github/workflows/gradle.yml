@@ -26,7 +26,7 @@ jobs:
       run: chmod +x gradlew && ./gradlew build
 
     - name: notification
-      uses: ravsamhq/notify-slack-action@v2
+      uses: ravsamhq/notify-slack-action@2.3.0
       if: always()
       with:
         status: ${{ job.status }}
