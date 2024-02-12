@@ -31,15 +31,15 @@ jobs:
       with:
         status: ${{ job.status }}
         notification_title: "{workflow} has {status_message}"
-        message_format: "{emoji} *{workflow}* {status_message} push by ${{ github.actor }}"
+        message_format: "{emoji} *{workflow}* {status_message} push by ${{ github.actor }} :rocket:"
         # footer: "Linked Repo <{repo_url}|{repo}>"
         mention_groups: "!channel"
         mention_groups_when: "failure"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    - uses: rtCamp/action-slack-notify@v2
-      env:
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_MESSAGE: 'Post Content :rocket:'
-          SLACK_TITLE: ${{ job.status }}
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+    # - uses: rtCamp/action-slack-notify@v2
+    #   env:
+    #       SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+    #       SLACK_MESSAGE: 'Post Content :rocket:'
+    #       SLACK_TITLE: ${{ job.status }}
+    #       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
