@@ -25,18 +25,25 @@ jobs:
     - name: Build with Gradle Wrapper
       run: chmod +x gradlew && ./gradlew build
 
-    - name: notification
-      uses: ravsamhq/notify-slack-action@2.3.0
+    # - name: notification
+    #   uses: ravsamhq/notify-slack-action@2.3.0
+    #   if: always()
+    #   with:
+    #     status: ${{ job.status }}
+    #     notification_title: "{workflow} has {status_message}"
+    #     message_format: "{emoji} *{workflow}* {status_message} push by ${{ github.actor }} :rocket:"
+    #     # footer: "Linked Repo <{repo_url}|{repo}>"
+    #     mention_groups: "!channel"
+    #     mention_groups_when: "failure"
+    #   env:
+    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    - name: test
       if: always()
-      with:
-        status: ${{ job.status }}
-        notification_title: "{workflow} has {status_message}"
-        message_format: "{emoji} *{workflow}* {status_message} push by ${{ github.actor }} :rocket:"
-        # footer: "Linked Repo <{repo_url}|{repo}>"
-        mention_groups: "!channel"
-        mention_groups_when: "failure"
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+       curl -X POST -H 'Content-type: application/json' --data 'if ${{ job.status }}=failure {"text":"job fail"}else {"text":"job sucess"}' SLACK_WEBHOOK_URL
+  
     # - uses: rtCamp/action-slack-notify@v2
     #   env:
     #       SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
