@@ -39,10 +39,8 @@ jobs:
     #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     - name: test
       if: always()
-      env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
-       curl -X POST -H 'Content-type: application/json' --data 'if ${{ job.status }}=failure {"text":"job fail"}else {"text":"job sucess"}' SLACK_WEBHOOK_URL
+       curl -X POST -H 'Content-type: application/json' --data 'if ${{ job.status }}=failure {"text":"job fail"}else {"text":"job sucess"}'${{ secrets.SLACK_WEBHOOK_URL }}
   
     # - uses: rtCamp/action-slack-notify@v2
     #   env:
