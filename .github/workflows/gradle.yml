@@ -44,7 +44,7 @@ jobs:
       run: |
        JOB_STATUS="${{ job.status }}"
        workflowname="${{github.workflow}}"
-       Actor="${{ github.actor }}""
+       Actor="${{ github.actor }}"
 
        SUCCESS_EMOJI="✅"
        FAILURE_EMOJI="❌"
