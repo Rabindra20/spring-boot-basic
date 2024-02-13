@@ -44,10 +44,13 @@ jobs:
       run: |
        JOB_STATUS="${{ job.status }}"
 
+       SUCCESS_EMOJI="✅"
+       FAILURE_EMOJI="❌"
+       
        if [ "$JOB_STATUS" = "failure" ]; then
-          JSON_DATA='{"text":"job fail"}'
+           JSON_DATA="{\"text\":\"$FAILURE_EMOJI Job failed: job fail :rocket: \"}"
        else
-          JSON_DATA='{"text":"job success"}'
+           JSON_DATA="{\"text\":\"$SUCCESS_EMOJI Job succeeded: job success :rocket: \"}"
        fi
        curl -X POST -H 'Content-type: application/json' --data "$JSON_DATA" $SLACK_WEBHOOK_URL
     # - uses: rtCamp/action-slack-notify@v2
