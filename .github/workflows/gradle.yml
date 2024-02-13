@@ -42,8 +42,14 @@ jobs:
       env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
-       curl -X POST -H 'Content-type: application/json' --data 'if ${{ job.status }}=failure {"text":"job fail"}else {"text":"job sucess"}' SLACK_WEBHOOK_URL
-  
+       JOB_STATUS="${{ job.status }}"
+
+       if [ "$JOB_STATUS" = "failure" ]; then
+          JSON_DATA='{"text":"job fail"}'
+       else
+          JSON_DATA='{"text":"job success"}'
+       fi
+       curl -X POST -H 'Content-type: application/json' --data "$JSON_DATA" $SLACK_WEBHOOK_URL
     # - uses: rtCamp/action-slack-notify@v2
     #   env:
     #       SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
