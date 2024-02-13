@@ -52,9 +52,9 @@ jobs:
        CHANNEL_MENTION="<!channel>"
 
        if [ "$JOB_STATUS" = "failure" ]; then
-        JSON_DATA="{\"text\":\"$CHANNEL_MENTION $FAILURE_EMOJI $workflowname has Job *failed* Push By $Actor Repo: ${{ github.repositoryUrl }}\"}"
+        JSON_DATA="{\"text\":\"$CHANNEL_MENTION $FAILURE_EMOJI $workflowname has Job *failed* \n Push By $Actor Repo: ${{ github.repositoryUrl }}\"}"
        else
-        JSON_DATA="{\"text\":\"$SUCCESS_EMOJI $workflowname has Job *succeeded* Push By $Actor Repo: ${{ github.repositoryUrl }} :rocket:\"}"
+        JSON_DATA="{\"text\":\"$SUCCESS_EMOJI $workflowname has Job *succeeded* \n Push By $Actor Repo: ${{ github.repositoryUrl }} :rocket:\"}"
        fi
        curl -X POST -H 'Content-type: application/json' --data "$JSON_DATA" $SLACK_WEBHOOK_URL
     # - uses: rtCamp/action-slack-notify@v2
